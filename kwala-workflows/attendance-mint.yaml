@@ -1,0 +1,49 @@
+name: pop-nft-attendance-minter
+description: Triggered by the frontend to mint a Proof-of-Presence NFT.
+
+# -----------------
+# 1. TRIGGER
+# This workflow starts when your Next.js app sends a POST request.
+# -----------------
+trigger:
+  - api_call:
+      endpoint: "/check-in-mint"
+      # Defines the data we expect from the frontend
+      payload_schema:
+        walletAddress: string
+        eventID: string 
+
+# -----------------
+# 2. CONDITIONS (Optional but Recommended)
+# -----------------
+conditions:
+  # Ensures this workflow only runs for your specific hackathon event
+  - compare:
+      value: "{{trigger.payload.eventID}}"
+      operator: "=="
+      target: "HACKATHON_2025" # You can change this ID
+
+# -----------------
+# 3. ACTIONS
+# This is what Kwala does if the conditions pass.
+# -----------------
+actions:
+  # The only action: call the 'safeMint' function on your smart contract
+  - call_contract:
+      # Use the correct testnet
+      network: "polygon_mumbai"
+      
+      # ⬇️ *** YOU MUST REPLACE THIS *** ⬇️
+      contract_address: "0x...YOUR_DEPLOYED_NFT_CONTRACT_ADDRESS" 
+      
+      # The function we want to call
+      function: "safeMint"
+      
+      # The arguments for the function: safeMint(address to, string memory tokenURI)
+      args: 
+        # Arg 1 (to): The wallet address from the frontend's API call
+        - "{{trigger.payload.walletAddress}}"
+        
+        # Arg 2 (tokenURI): The IPFS link to your NFT's metadata
+        # ⬇️ *** YOU MUST REPLACE THIS *** ⬇️
+        - "ipfs://Qm...YOUR_METADATA_IPFS_HASH_HERE"
