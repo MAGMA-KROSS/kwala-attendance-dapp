@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Plasma from "../../Plasma/Plasma";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +28,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <div className="hidden md:block" style={{ position: 'fixed', inset: 0, zIndex: -10 }}>
+          <Plasma mouseInteractive={false} />
+        </div>
+        <main>
+     
+          {children}
+       
+        </main>
       </body>
     </html>
   );

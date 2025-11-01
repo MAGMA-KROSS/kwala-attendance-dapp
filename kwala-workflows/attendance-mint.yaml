@@ -1,49 +1,37 @@
-name: pop-nft-attendance-minter
-description: Triggered by the frontend to mint a Proof-of-Presence NFT.
-
-# -----------------
-# 1. TRIGGER
-# This workflow starts when your Next.js app sends a POST request.
-# -----------------
-trigger:
-  - api_call:
-      endpoint: "/check-in-mint"
-      # Defines the data we expect from the frontend
-      payload_schema:
-        walletAddress: string
-        eventID: string 
-
-# -----------------
-# 2. CONDITIONS (Optional but Recommended)
-# -----------------
-conditions:
-  # Ensures this workflow only runs for your specific hackathon event
-  - compare:
-      value: "{{trigger.payload.eventID}}"
-      operator: "=="
-      target: "HACKATHON_2025" # You can change this ID
-
-# -----------------
-# 3. ACTIONS
-# This is what Kwala does if the conditions pass.
-# -----------------
-actions:
-  # The only action: call the 'safeMint' function on your smart contract
-  - call_contract:
-      # Use the correct testnet
-      network: "polygon_mumbai"
-      
-      # ⬇️ *** YOU MUST REPLACE THIS *** ⬇️
-      contract_address: "0x...YOUR_DEPLOYED_NFT_CONTRACT_ADDRESS" 
-      
-      # The function we want to call
-      function: "safeMint"
-      
-      # The arguments for the function: safeMint(address to, string memory tokenURI)
-      args: 
-        # Arg 1 (to): The wallet address from the frontend's API call
-        - "{{trigger.payload.walletAddress}}"
-        
-        # Arg 2 (tokenURI): The IPFS link to your NFT's metadata
-        # ⬇️ *** YOU MUST REPLACE THIS *** ⬇️
-        - "ipfs://Qm...YOUR_METADATA_IPFS_HASH_HERE"
+Name: attandance
+Trigger:
+  TriggerSourceContract: 0x0501d5c924eabbf8ad9ac016b1e250cb2e3cc2d2
+  TriggerChainID: 80002
+  TriggerEventName: Transfer(address,address,uint256)
+  TriggerEventFilter: NA
+  TriggerSourceContractABI: W3siYW5vbnltb3VzIjpmYWxzZSwiaW5wdXRzIjpbeyJpbmRleGVkIjp0cnVlLCJpbnRlcm5hbFR5cGUiOiJhZGRyZXNzIiwibmFtZSI6ImZyb20iLCJ0eXBlIjoiYWRkcmVzcyJ9LHsiaW5kZXhlZCI6dHJ1ZSwiaW50ZXJuYWxUeXBlIjoiYWRkcmVzcyIsIm5hbWUiOiJ0byIsInR5cGUiOiJhZGRyZXNzIn0seyJpbmRleGVkIjpmYWxzZSwiaW50ZXJuYWxUeXBlIjoidWludDI1NiIsIm5hbWUiOiJhbW91bnQiLCJ0eXBlIjoidWludDI1NiJ9XSwibmFtZSI6IlRyYW5zZmVyIiwidHlwZSI6ImV2ZW50In0seyJpbnB1dHMiOlt7ImludGVybmFsVHlwZSI6ImFkZHJlc3MiLCJuYW1lIjoidG8iLCJ0eXBlIjoiYWRkcmVzcyJ9LHsiaW50ZXJuYWxUeXBlIjoidWludDI1NiIsIm5hbWUiOiJhbW91bnQiLCJ0eXBlIjoidWludDI1NiJ9XSwibmFtZSI6InRyYW5zZmVyIiwib3V0cHV0cyI6W10sInN0YXRlTXV0YWJpbGl0eSI6Im5vbnBheWFibGUiLCJ0eXBlIjoiZnVuY3Rpb24ifV0=
+  TriggerPrice: NA
+  RecurringSourceContract: 0x0501d5c924eabbf8ad9ac016b1e250cb2e3cc2d2
+  RecurringChainID: 80002
+  RecurringEventName: Transfer(address,address,uint256)
+  RecurringEventFilter: NA
+  RecurringSourceContractABI: W3siYW5vbnltb3VzIjpmYWxzZSwiaW5wdXRzIjpbeyJpbmRleGVkIjp0cnVlLCJpbnRlcm5hbFR5cGUiOiJhZGRyZXNzIiwibmFtZSI6ImZyb20iLCJ0eXBlIjoiYWRkcmVzcyJ9LHsiaW5kZXhlZCI6dHJ1ZSwiaW50ZXJuYWxUeXBlIjoiYWRkcmVzcyIsIm5hbWUiOiJ0byIsInR5cGUiOiJhZGRyZXNzIn0seyJpbmRleGVkIjpmYWxzZSwiaW50ZXJuYWxUeXBlIjoidWludDI1NiIsIm5hbWUiOiJhbW91bnQiLCJ0eXBlIjoidWludDI1NiJ9XSwibmFtZSI6IlRyYW5zZmVyIiwidHlwZSI6ImV2ZW50In0seyJpbnB1dHMiOlt7ImludGVybmFsVHlwZSI6ImFkZHJlc3MiLCJuYW1lIjoidG8iLCJ0eXBlIjoiYWRkcmVzcyJ9LHsiaW50ZXJuYWxUeXBlIjoidWludDI1NiIsIm5hbWUiOiJhbW91bnQiLCJ0eXBlIjoidWludDI1NiJ9XSwibmFtZSI6InRyYW5zZmVyIiwib3V0cHV0cyI6W10sInN0YXRlTXV0YWJpbGl0eSI6Im5vbnBheWFibGUiLCJ0eXBlIjoiZnVuY3Rpb24ifV0=
+  RecurringPrice: NA
+  RepeatEvery: event
+  ExecuteAfter: event
+  ExpiresIn: 1781796603
+  Meta: NA
+  ActionStatusNotificationPOSTURL: https://workflow-notification-test.kalp.network/push_notification
+  ActionStatusNotificationAPIKey: NA
+Actions:
+  - Name: post_action
+    Type: post
+    APIEndpoint: https://workflow-notification-test.kalp.network/push_notification
+    APIPayload:
+      message: Event read
+    TargetContract: NA
+    TargetFunction: NA
+    TargetParams:
+      NA
+    ChainID: NA
+    EncodedABI: NA
+    Bytecode: NA
+    Metadata: NA
+    RetriesUntilSuccess: 5
+Execution:
+  Mode: sequential

@@ -5,7 +5,7 @@ import { ethers } from 'ethers';
 
 // ⬇️ *** YOU MUST REPLACE THIS *** ⬇️
 // This is the unique API endpoint you get after deploying your YAML file on Kwala
-const KWALA_WORKFLOW_API_ENDPOINT = "https://...YOUR_KWALA_API_ENDPOINT_HERE";
+const KWALA_WORKFLOW_API_ENDPOINT = "https://workflow-notification-test.kalp.network/push_notification";
 
 // This should match the 'target' in your YAML's condition
 const EVENT_ID = "HACKATHON_2025"; 
@@ -110,7 +110,7 @@ function AttendanceChecker() {
         <button
           onClick={connectWallet}
           disabled={isLoading}
-          className="w-full px-8 py-4 text-xl font-bold text-white bg-blue-600 rounded-lg shadow-lg hover:bg-blue-700 transition-all duration-300 disabled:opacity-50"
+          className="px-8 py-4 w-full text-lg font-semibold rounded-xl bg-gradient-to-r from-white to-gray-200 text-black shadow-lg hover:shadow-gray-500/50 cursor-pointer hover:scale-105 transition-all duration-600"
         >
           {isLoading ? 'Connecting...' : 'Connect Wallet'}
         </button>
