@@ -129,7 +129,7 @@ function AttendanceChecker() {
   };
 
   return (
-    <div className="w-full max-w-md p-8 bg-gray-800 rounded-2xl shadow-2xl border border-gray-700">
+    <div className="w-1/2 p-8 backdrop-blur-xl bg-white/3 border-1 border-gray-200/40 rounded-2xl shadow-2xl">
       <h1 className="text-3xl font-bold text-center text-transparent bg-clip-text bg-gradient from-teal-400 to-blue-500 mb-4">
         Web3 Attendance
       </h1>
@@ -139,7 +139,7 @@ function AttendanceChecker() {
 
       {/* Wallet Address Display */}
       {walletAddress && (
-        <div className="mb-6 p-4 bg-gray-900 rounded-lg border border-gray-700">
+        <div className="mb-6 p-4 bg-gray-900 rounded-lg border w-2xl border-gray-700">
           <p className="text-sm text-gray-500">Connected as:</p>
           <p className="text-lg text-teal-300 font-mono">
             {walletAddress}

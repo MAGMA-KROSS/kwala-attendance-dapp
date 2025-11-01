@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Plasma from "../../Plasma/Plasma";
+import Navbar from "./Component/Navbar"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,7 +33,7 @@ export default function RootLayout({
           <Plasma mouseInteractive={false} />
         </div>
         <main>
-     
+          <Navbar/>
           {children}
        
         </main>
